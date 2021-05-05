@@ -29,18 +29,16 @@ head(nfl2020)
 ```{r}
 unique(nfl2020$RushDirection)
 ```
-```{r}
-unique(nfl2020$PassType)
-```
 
 ```{r}
-rush_leftT <- subset(nfl2020,  RushDirection == "LEFT TACKLE")
+rush_leftT <- filter(nfl2020, RushDirection == "LEFT TACKLE"  | RushDirection == "LEFT GUARD" )
 ```
 
 ```{r}
 left_avg_yards <- rush_leftT %>% group_by(OffenseTeam, Down) %>% summarise(mean_yards = mean(Yards))
-head(left_avg_yards)
+as.data.frame(left_avg_yards)
 ```
+
 ```{r}
 left_avg_togo <- rush_leftT %>% group_by(OffenseTeam, Down) %>% summarise(mean_togo = mean(ToGo))
 left_avg_togo
@@ -48,6 +46,13 @@ left_avg_togo
 
 
 ```{r}
+center <- filter(nfl2020, RushDirection == "CENTER"  )
+center_avg_yards <- center %>% group_by(OffenseTeam, Down) %>% summarise(mean_yards = mean(Yards))
+as.data.frame(center_avg_yards)
+```
 
+```{r}
+center_avg_togo <- center %>% group_by(OffenseTeam, Down) %>% summarise(mean_togo = mean(ToGo))
+center_avg_togo
 ```
 
